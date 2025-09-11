@@ -9,9 +9,14 @@ import io
 import json
 from datetime import datetime
 import time
+import os  # <-- Added for environment variable support
 
 # 🔑 Gemini API Configuration
-GEMINI_API_KEY = "AIzaSyBQuRgM65JIE0HkmY6V05DBIq26p-uE-38"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")  # <-- Load API key from environment variable
+
+if not GEMINI_API_KEY:
+    st.error("Gemini API key not found. Please set the GEMINI_API_KEY environment variable.")
+    st.stop()
 
 try:
     import google.generativeai as genai
